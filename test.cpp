@@ -7,9 +7,7 @@
 using namespace std;
 
 // Fonction pour afficher le repère
-void afficherRepere(sp m, sp m1, int largeur, int hauteur) {
-    m.symbol = 1;
-    m1.symbol = 1;
+void afficherRepere(sprite m, sprite m1, int largeur, int hauteur) {
     for (int i = 0; i < hauteur; i++) {
         for (int j = 0; j < largeur; j++) {
             if (i == m.y && j == m.x) {
@@ -25,13 +23,8 @@ void afficherRepere(sp m, sp m1, int largeur, int hauteur) {
 }
 
 int main() {
-    sp m, m1;
-    m.x = 0; //Position initiale x m
-    m.y = 0; //Position initiale y m
-    m.symbol = 1;
-    m1.x = 10; //Position initiale x m1
-    m1.y = 0; //Position initiale y m1
-    m1.symbol = 1;
+    sprite m(0,0, 1); 
+    sprite m1(10, 0, 1);
     int largeur = 10; // Largeur du repère
     int hauteur = 10; // Hauteur du repère
     int deplacementX = 1; // Déplacement en x
@@ -42,13 +35,13 @@ int main() {
         afficherRepere(m, m1, largeur, hauteur);
         this_thread::sleep_for(chrono::milliseconds(1000)); // Attendre 100 ms
 
-        if (!collision_check(m,m1))
+        if (!sprite::collision_check(m,m1))
         {
             m1.x -= deplacementX;
             m1.y -= deplacementY;
         }
 
-        if (!collision_check(m,m1))
+        if (!sprite::collision_check(m,m1))
         {
             // Déplacer le marqueur
             m.x += deplacementX;

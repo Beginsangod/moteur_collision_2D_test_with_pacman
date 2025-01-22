@@ -1,13 +1,23 @@
+#include <cmath>
 #define COLLISION_CHECK_INCLUDED
 #ifdef COLLISION_CHECK_INCLUDED
 
-//type pour definir les sprites
-typedef struct sprite{
-    int x;
-    int y;
-    char symbol;
-} sp;
+//classe pour definir les sprites
+class sprite
+{
+    public:
+        int x;
+        int y;
+        char symbol;
 
-bool collision_check(sp p1,sp p2);
+        sprite(int x, int y, char symbol = 1) : x(x) , y(y) , symbol(symbol) {}
+
+        static bool collision_check(sprite& p1,sprite& p2){
+        if ((abs(p1.x - p2.x) == 1 && p1.y == p2.y) || (abs(p1.y - p2.y) == 1 && p1.x == p2.x)){
+            return true;
+        }
+        return false;
+        }
+};
 
 #endif
