@@ -33,7 +33,7 @@ int main() {
     while (true) {
         system("CLS"); // Effacer la console..
         afficherRepere(m, m1, largeur, hauteur);
-        this_thread::sleep_for(chrono::milliseconds(1000)); // Attendre 100 ms
+        this_thread::sleep_for(chrono::milliseconds(100)); // Attendre 100 ms
 
         if (!sprite::collision_check(m,m1))
         {
