@@ -2,7 +2,6 @@
 #define COLLISION_CHECK_INCLUDED
 #ifdef COLLISION_CHECK_INCLUDED
 
-
 //classe pour definir les sprites
 class sprite
 {

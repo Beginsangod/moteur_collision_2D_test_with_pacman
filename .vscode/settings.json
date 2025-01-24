@@ -1,5 +1,6 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "chrono": "cpp",
         "iostream": "cpp",
         "array": "cpp",
@@ -48,5 +49,9 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp"
+=======
+        "*.embeddedhtml": "html",
+        "iostream": "cpp"
+>>>>>>> 8b984f04cc95987e587ef5035b91d1b2322aff97
     }
 }
