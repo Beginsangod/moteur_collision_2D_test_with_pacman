@@ -1,13 +1,12 @@
 {
     "files.associations": {
-<<<<<<< HEAD
-        "chrono": "cpp",
-        "iostream": "cpp",
+        "*.embeddedhtml": "html",
         "array": "cpp",
         "atomic": "cpp",
-        "bit": "cpp",
         "*.tcc": "cpp",
         "cctype": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
         "cstdarg": "cpp",
@@ -15,21 +14,20 @@
         "cstdint": "cpp",
         "cstdio": "cpp",
         "cstdlib": "cpp",
+        "cstring": "cpp",
         "ctime": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
         "deque": "cpp",
+        "list": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
         "algorithm": "cpp",
-        "functional": "cpp",
         "iterator": "cpp",
         "memory": "cpp",
         "memory_resource": "cpp",
-        "numeric": "cpp",
         "optional": "cpp",
-        "random": "cpp",
         "ratio": "cpp",
         "string": "cpp",
         "string_view": "cpp",
@@ -40,6 +38,7 @@
         "fstream": "cpp",
         "initializer_list": "cpp",
         "iosfwd": "cpp",
+        "iostream": "cpp",
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
@@ -49,9 +48,5 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp"
-=======
-        "*.embeddedhtml": "html",
-        "iostream": "cpp"
->>>>>>> 8b984f04cc95987e587ef5035b91d1b2322aff97
     }
 }

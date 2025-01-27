@@ -14,68 +14,55 @@
 class player : public sprite
 {
     public:
+        int life = 3;
+        player(int x, int y, char symbol = 1) : sprite(x, y, symbol), life(3){};
 
         // Fonction pour la gestion des deplacements de pacman
-        static sprite deplacement(sprite obj, char grille[15][35])
-        {
-            char touche;
-            #ifdef _WIN32
-            touche = getch();
+        void deplacement(char grille[15][35])
+        {    
+            #ifdef _WIN32   
+            if (_kbhit()) 
             #elif defined(__linux__)
-            read(0, &touche, 1);
+            if (select())
             #endif
+            {    
+                char touche;
+                #ifdef _WIN32
+                touche = getch();
+                #elif defined(__linux__)
+                read(0, &touche, 1);
+                #endif
 
-            if(touche == 'w') // Monter
-            {  
-                if(grille[obj.x - 1][obj.y] == 35) // verifier si la position cibler est un mur
-                {
-                    // ne pas deplacer le joueur si c'est un mur 
-                    return obj;
+                if(touche == 'w') // Monter
+                {  
+                    if(grille[x - 1][y] != 35) // verifier si la position cibler est un mur
+                    {
+                        // deplacer le jouer si ce n'est pas un mur
+                        x--;
+                    }
                 }
-                else 
+                else if(touche == 's') // Descendre
                 {
-                    // deplacer le jouer si ce n'est pas une mur
-                    obj.x--;
-                    return obj;
+                    if(grille[x + 1][y] != 35)
+                    {
+                        x++;
+                    }
                 }
-            }
-            else if(touche == 's') // Descendre
-            {
-                if(grille[obj.x + 1][obj.y] == 35)
+                else if(touche == 'a') // Aller a gauche
                 {
-                    return obj;
+                    if(grille[x][y - 1] != 35)
+                    {
+                        y--;
+                    }
                 }
-                else 
+                else if(touche == 'd') // Aller a doite
                 {
-                    obj.x++;
-                    return obj;
-                }
-            }
-            else if(touche == 'a') // Aller a gauche
-            {
-                if(grille[obj.x][obj.y - 1] == 35)
-                {
-                    return obj;
-                }
-                else
-                {
-                    obj.y--;
-                    return obj;
+                    if(grille[x][y + 1] != 35)
+                    {
+                        y++;
+                    } 
                 }
             }
-            else if(touche == 'd') // Aller a doite
-            {
-               if(grille[obj.x][obj.y + 1] == 35)
-                {
-                    return obj;
-                }
-                else
-                {
-                    obj.y++;
-                    return obj;
-                } 
-            }
-            return obj;
         }
 };
 
