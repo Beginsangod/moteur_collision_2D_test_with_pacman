@@ -18,14 +18,17 @@ class player : public sprite
         player(int x, int y, char symbol = 1) : sprite(x, y, symbol), life(3){};
 
         // Fonction pour la gestion des deplacements de pacman
-        void deplacement(char grille[15][35])
-        {    
+        void deplacement(char grille[15][35], bool& running)
+        {
+            char c;    
             #ifdef _WIN32   
             if (_kbhit()) 
             #elif defined(__linux__)
-            if (select())
+            if (read(0, &c, 1))
             #endif
+
             {    
+                // lire une touche
                 char touche;
                 #ifdef _WIN32
                 touche = getch();
@@ -35,7 +38,7 @@ class player : public sprite
 
                 if(touche == 'w') // Monter
                 {  
-                    if(grille[x - 1][y] != 35) // verifier si la position cibler est un mur
+                    if(grille[x - 1][y] != 35) // verifier si la position cibler n'est un mur
                     {
                         // deplacer le jouer si ce n'est pas un mur
                         x--;
@@ -61,6 +64,10 @@ class player : public sprite
                     {
                         y++;
                     } 
+                }
+                else if(touche == 'q')
+                {
+                    running = false; // arreter le jeu
                 }
             }
         }

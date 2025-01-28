@@ -28,7 +28,7 @@ void afficherRepere(sprite obj, int largeur, int hauteur, char grille[15][35], B
             // Tout ce qui suit dans cette fonction c'est la modelisation de la carte donc le placemant des murs
             else if(i == 0 || i == 14 || j == 0 || j == 34)
             {
-                grille[i][j] = 35;
+                grille[i][j] = 35; // ajouter les blocks du mur aux elements d'un tableau
                 cout << mur;
             }
             else if(j == 2 && (i == 2 || i == 3 || i == 4 || i == 5 || i == 6 || i == 8 || i == 9 || i == 10 || i == 11 || i == 12))
@@ -67,6 +67,16 @@ void afficherRepere(sprite obj, int largeur, int hauteur, char grille[15][35], B
                 cout << mur;
             }
             else if((i == 6) && (j == 11 || j == 12 || j == 13 || j == 14 || j == 19 || j == 20 || j == 21 || j == 22 || j == 23))
+            {
+                grille[i][j] = 35;
+                cout << mur;
+            }
+            else if((i == 8) && (j == 11 || j == 12 || j == 13 || j == 14 || j == 15 || j == 16 || j == 17 || j == 18 || j == 19 || j == 20 || j == 21 || j == 22 || j == 23))
+            {
+                grille[i][j] = 35;
+                cout << mur;
+            }
+            else if((i == 1 || i == 13) && (j == 8 || j == 25))
             {
                 grille[i][j] = 35;
                 cout << mur;
@@ -119,7 +129,7 @@ int main() {
         this_thread::sleep_for(chrono::milliseconds(100)); // Attendre 100 ms
    
         // Deplacer pacman
-        pacman.deplacement(grille);
+        pacman.deplacement(grille, running);
     }
 
     return 0;
