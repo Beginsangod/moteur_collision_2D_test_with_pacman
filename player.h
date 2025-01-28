@@ -18,58 +18,66 @@ class player : public sprite
         player(int x, int y, char symbol = 1) : sprite(x, y, symbol), life(3){};
 
         // Fonction pour la gestion des deplacements de pacman
-        void deplacement(char grille[15][35], bool& running)
+        static sprite deplacement(sprite obj, char grille[15][35])
         {
-            char c;    
-            #ifdef _WIN32   
-            if (_kbhit()) 
+            char touche;
+            #ifdef _WIN32
+            touche = getch();
             #elif defined(__linux__)
-            if (read(0, &c, 1))
+            read(0, &touche, 1);
             #endif
 
-            {    
-                // lire une touche
-                char touche;
-                #ifdef _WIN32
-                touche = getch();
-                #elif defined(__linux__)
-                read(0, &touche, 1);
-                #endif
-
-                if(touche == 'w') // Monter
-                {  
-                    if(grille[x - 1][y] != 35) // verifier si la position cibler n'est un mur
-                    {
-                        // deplacer le jouer si ce n'est pas un mur
-                        x--;
-                    }
-                }
-                else if(touche == 's') // Descendre
+            if(touche == 'w') // Monter
+            {  
+                if(grille[obj.x - 1][obj.y] == 35) // verifier si la position cibler est un mur
                 {
-                    if(grille[x + 1][y] != 35)
-                    {
-                        x++;
-                    }
+                    // ne pas deplacer le joueur si c'est un mur 
+                    return obj;
                 }
-                else if(touche == 'a') // Aller a gauche
+                else 
                 {
-                    if(grille[x][y - 1] != 35)
-                    {
-                        y--;
-                    }
-                }
-                else if(touche == 'd') // Aller a doite
-                {
-                    if(grille[x][y + 1] != 35)
-                    {
-                        y++;
-                    } 
-                }
-                else if(touche == 'q')
-                {
-                    running = false; // arreter le jeu
+                    // deplacer le jouer si ce n'est pas une mur
+                    obj.x--;
+                    return obj;
                 }
             }
+            else if(touche == 's') // Descendre
+            {
+                if(grille[obj.x + 1][obj.y] == 35)
+                {
+                    return obj;
+                }
+                else 
+                {
+                    obj.x++;
+                    return obj;
+                }
+            }
+            else if(touche == 'a') // Aller a gauche
+            {
+                if(grille[obj.x][obj.y - 1] == 35)
+                {
+                    return obj;
+                }
+                else
+                {
+                    obj.y--;
+                    return obj;
+                }
+            }
+            else if(touche == 'd') // Aller a doite
+            {
+               if(grille[obj.x][obj.y + 1] == 35)
+                {
+                    return obj;
+                }
+                else
+                {
+                    obj.y++;
+                    return obj;
+                } 
+            }
+            return obj;
         }
 };
 
