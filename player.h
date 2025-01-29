@@ -65,10 +65,6 @@ class player : public sprite
                         y++;
                     } 
                 }
-                else if(touche == 'q')
-                {
-                    running = false; // arreter le jeu
-                }
             }
         }
 };

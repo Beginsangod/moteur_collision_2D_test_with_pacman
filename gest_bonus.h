@@ -8,7 +8,8 @@
 //classe parent pour les differents bonus du jeu 
 class bonus : public sprite {
     public:
-        bonus(int x, int y,char symbol) : sprite(x,y,symbol){};
+        int point;
+        bonus(int x, int y,char symbol, int point) : sprite(x,y,symbol), point(point){};
 
     //gerer le contact entre les bonus et le joueur
     bool contact(player& p){
@@ -18,48 +19,35 @@ class bonus : public sprite {
         }
         return false;
     }
+
+    //ajoue de point
+    void addscore(int score, player p){
+        if (bonus::contact(p))
+        {
+            score += point;
+        } 
+    }
 };
 
 //classe bonus basique pour les points
 class pellet : public bonus{ 
     public:
-        pellet(int x, int y, char symbol= '.'): bonus(x,y,symbol){};
+        pellet(int x, int y, char symbol= '.',int point = 10): bonus(x,y,symbol,point){};
 
-    //ajoue de point
-    void addscore(int score,player p){
-        if (bonus::contact(p))
-        {
-            score += 10;
-        }
-    }
 };
 
 //classe bonus superieur plus de point
 class super_pellet : public bonus{ 
     public:
-        super_pellet(int x, int y, char symbol= 16): bonus(x,y,symbol){};
+        super_pellet(int x, int y, char symbol= 16, int point = 100): bonus(x,y,symbol,point){};
 
-    //ajoue de point
-    void addscore(int score, player p){
-        if (bonus::contact(p))
-        {
-            score += 100;
-        } 
-    }
 };
 
 //classe bonus superieur+ et possibilite de bouffer le joueur
 class joker : public bonus{ 
     public:
-        joker(int x, int y, char symbol= 5): bonus(x,y,symbol){};
+        joker(int x, int y, char symbol= 5, int point = 50): bonus(x,y,symbol, point){};
 
-    //ajoue de point
-    void addscore(int score, player p){
-        if (bonus::contact(p))
-        {
-            score += 50;
-        } 
-    }
     //Methode transformant les mobs en mangeable pour 5 seconde
     void changeghost(player p, Mobsgroup ms){
         if (bonus::contact(p))
@@ -111,6 +99,20 @@ class Bonusgroup : public sprite {
             // Ajouter le nouveau bonus
             bns[size++] = newbonus;
         };
+
+        void removeBonus(int x, int y) {
+            for (int i = 0; i < size; ++i) {
+                if (bns[i]->x == x && bns[i]->y == y) {
+                    delete bns[i];
+                    for (int j = i; j < size - 1; ++j) {
+                        bns[j] = bns[j + 1];
+                    }
+                    --size;
+                    return;
+                }
+            }
+        }
+
         bonus* getBonusAt(int x, int y) {
             for (int i = 0; i < size; ++i) {
                 if (bns[i]->x == x && bns[i]->y == y) {
