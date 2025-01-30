@@ -14,6 +14,67 @@ void initMobs(Mobsgroup& mbs);
 void initBonus(Bonusgroup& bg);
 void afficherRepere(sprite& obj, int largeur, int score, int hauteur, char grille[15][35], Mobsgroup& mbs,Bonusgroup& bg, player& pacman);
 
+void afficherMenu(int& n)
+{
+    // Affichage du menu principal en fonction de l'option sur laquelle on est
+    if(n == 1)
+    {
+        std::cout << "\033[33m" << "\n     PAC-MAN     \n"  << "\033[0m" << std::endl;
+        std::cout << "\033[31m" << "JOUER" << "\033[0m" << std::endl;
+        std::cout << "QUITTER" << std::endl;
+        std::cout  << "\nEntrer w ou s pour monter ou descendre et x pour selectionner : " << std::endl;
+    }
+    else if(n == 2)
+    {
+        std::cout << "\033[33m" << "\n     PAC-MAN     \n" << "\033[0m" << std::endl;
+        std::cout << "JOUER" << std::endl;
+        std::cout << "\033[31m" << "QUITTER" << "\033[0m" << std::endl;
+        std::cout  << "\nEntrer w ou s pour monter ou descendre et x pour selectionner : " << std::endl;
+    }
+}
+
+void naviguerMenu(int& n)
+{
+    // navigaton dans le menu et choix de l'option
+    char touche;
+
+    while(touche != 'x')
+    {
+
+    // lire une touche
+    #ifdef _WIN32
+    touche = getch();
+    #elif defined(__linux__)
+    read(0, &touche, 1);
+    #endif
+    
+    if(touche == 'w' && n == 2) // Monter dans le menu
+    {
+        n--;
+        
+        #ifdef _WIN32
+        system("CLS"); // Effacer la console sur windows
+        #elif defined(__linux__) 
+        system("clear"); // Effacer la console sur linux
+        #endif
+
+        afficherMenu(n);
+    }
+    if(touche == 's' && n == 1) // Descendre dans le menu
+    {
+        n++;
+
+        #ifdef _WIN32
+        system("CLS"); // Effacer la console sur windows
+        #elif defined(__linux__) 
+        system("clear"); // Effacer la console sur linux
+        #endif
+
+        afficherMenu(n);
+    }
+    }
+}
+
 //initialiser les fantomes
 void initMobs(Mobsgroup& mbs) {
     mbs.addMob(new mob(6, 15, 1));
@@ -152,6 +213,14 @@ int main() {
     char grille[15][35]; // Grille 2D pour le repere
     bool running = true; //pour la boucle du jeu
 
+    int n = 1;
+
+    afficherMenu(n); // affichage du menu
+    naviguerMenu(n); // choix de l'option (jouer ou quitter)
+    
+    if(n == 1) // Option jouer
+    {
+        
     initMobs(mbs);
     initBonus(bg);
 
@@ -179,5 +248,12 @@ int main() {
         }
     }
     std::cout<< "game over";
+    }
+    else // Option quitter
+    {
+        // sotir du jeu
+        system("exit");
+    }
+    
     return 0;
 }
